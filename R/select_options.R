@@ -1,0 +1,98 @@
+# options panel for d13C data selection
+select_options_ui <- function(id) {
+  ns <- NS(id)
+  
+  tagList(
+    sliderInput(
+      inputId = ns("age_min"),
+      label = "Minimum age (Ma)",
+      min = 485,
+      max = 635,
+      value = 510
+    ),
+
+    sliderInput(
+      inputId = ns("age_max"),
+      label = "Maximum age (Ma)",
+      min = 485,
+      max = 635,
+      value = 550
+    ),
+    
+    checkboxGroupInput(
+      inputId = ns("age_models"),
+      label = "Select which age models to show",
+      choices = c(
+        "Model K",
+        "Model J",
+        "Model I",
+        "Model H",
+        "Model G",
+        "Model F",
+        "Model E",
+        "Model D",
+        "Model C",
+        "Model B",
+        "Model A"
+      ),
+      selected = "Model K"
+    ),
+    
+    selectInput(
+      inputId = ns("background_model"),
+      label = "Plot a specific model\nas background (grey) points?",
+      choices = c(
+        "none",
+        "Model K",
+        "Model J",
+        "Model I",
+        "Model H",
+        "Model G",
+        "Model F",
+        "Model E",
+        "Model D",
+        "Model C",
+        "Model B",
+        "Model A"
+      ),
+      selected = "Model K"
+    )
+  )
+}
+
+
+select_options_server <- function(id) {
+  moduleServer(
+    id,
+    function(input, output, session) {
+      
+      # observe for choosing a model to include
+      observeEvent(input$age_models, {
+        print(paste0("You have chosen to compare: ", input$age_models))
+      })
+      
+      # observe for choosing a background model to include
+      observeEvent(input$background_model, {
+        print(paste0("Your chosen background model is: ", input$background_model))
+      })
+      
+      list(
+        age_min = reactive({
+          input$age_min %>% as.numeric()
+        }),
+
+        age_max = reactive({
+          input$age_max %>% as.numeric()
+        }),
+
+        age_models = reactive({
+          input$age_models
+        }),
+        
+        background_model = reactive({
+          input$background_model
+        })
+      )
+    }
+  )
+}
