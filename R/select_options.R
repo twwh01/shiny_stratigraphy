@@ -4,21 +4,15 @@ select_options_ui <- function(id) {
   
   tagList(
     sliderInput(
-      inputId = ns("age_min"),
-      label = "Minimum age (Ma)",
+      inputId = ns("selected_age"), 
+      label = "Select minimum and maximum ages (Ma):",
       min = 485,
       max = 635,
-      value = 510
+      value = c(510, 550),
+      round = TRUE,
+      step = 1
     ),
 
-    sliderInput(
-      inputId = ns("age_max"),
-      label = "Maximum age (Ma)",
-      min = 485,
-      max = 635,
-      value = 550
-    ),
-    
     checkboxGroupInput(
       inputId = ns("age_models"),
       label = "Select which age models to show",
@@ -78,11 +72,11 @@ select_options_server <- function(id) {
       
       list(
         age_min = reactive({
-          input$age_min %>% as.numeric()
+          input$selected_age %>% as.numeric() %>% min(., na.rm = TRUE)
         }),
 
         age_max = reactive({
-          input$age_max %>% as.numeric()
+          input$selected_age %>% as.numeric() %>% max(., na.rm = TRUE)
         }),
 
         age_models = reactive({
