@@ -15,7 +15,7 @@ select_options_ui <- function(id) {
 
     checkboxGroupInput(
       inputId = ns("age_models"),
-      label = "Select which age models to show",
+      label = "Select which age model versions to show",
       choices = c(
         "Model K",
         "Model J",
