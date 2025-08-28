@@ -22,41 +22,46 @@ theme_13C_age <- theme(
 
 # load data ----
 infile <- openxlsx2::wb_load(
-  file = file.path("data", "Bowyer2024_SciAdv_SD1_expanded.xlsx")
+  file = file.path("data", "Bowyer2024_SciAdv_SD1_simplified.xlsx")
 )
 
 indata <- openxlsx2::wb_to_df(
   file = infile,
-  sheet = "d13Ccarb_age_models_550-510Ma",
-  start_row = 2
+  sheet = "d13Ccarb_combined",
+  start_row = 1
 )
 
 indata_d13c <- indata %>%
   dplyr::select(
-    Region, 
-    `δ13Ccarb (‰)`,
-    starts_with("[Model"), 
-    `Crude lithofacies association`
+    region, 
+    d13c_carb,
+    starts_with("Model"), 
+    crude_lithofacies_association,
   ) %>%
-  dplyr::rename(
-    d13C = `δ13Ccarb (‰)`
-  ) %>%
-  dplyr::rename_with(
-    ~ gsub("].*", "", .x),
-    starts_with("[Model")
-  ) %>%
-  dplyr::rename_with(
-    ~ gsub("\\[", "", .x),
-    starts_with("[Model")
-  ) %>%
+  # dplyr::rename_with(
+  #   ~ gsub("].*", "", .x),
+  #   starts_with("[Model")
+  # ) %>%
+  # dplyr::rename_with(
+  #   ~ gsub("\\[", "", .x),
+  #   starts_with("[Model")
+  # ) %>%
   dplyr::mutate(
-    Region = ifelse(
-      str_detect(Region, "^Morocco"), 
+    region = ifelse(
+      str_detect(region, "^Morocco"), 
       "Morocco", 
       ifelse(
-        str_detect(Region, "^Laurentia. Mexico."),
+        str_detect(region, "^Laurentia. Mexico."),
         "Laurentia (Mexico)", 
-        Region
+        ifelse(
+          str_detect(region, "^nothern Namibia"),
+          "Namibia",
+          ifelse(
+            str_detect(region, "^Arabia"),
+            "Oman",
+            region
+          )
+        )
       )
     )
   )
@@ -64,6 +69,18 @@ indata_d13c <- indata %>%
 data_13c_plot <- indata_d13c %>%
   tidyr::pivot_longer(
     cols = starts_with("Model"),
-    names_to = "Age_model",
-    values_to = "Age_Ma"
+    names_to = "age_model",
+    values_to = "age_ma"
+  ) %>%
+  dplyr::mutate(
+    d13c_carb = as.numeric(d13c_carb),
+    age_ma = as.numeric(age_ma)
+  ) %>%
+  dplyr::mutate(
+    age_model_label = gsub("(\\s\\[.*)$", "", age_model),
+    .after = age_model
+  ) %>%
+  dplyr::filter(
+    !is.na(d13c_carb),
+    !is.na(age_ma)
   )
