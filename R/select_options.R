@@ -8,7 +8,7 @@ select_options_ui <- function(id) {
       label = "Select minimum and maximum ages (Ma):",
       min = 485,
       max = 635,
-      value = c(510, 550),
+      value = c(525, 575),
       round = TRUE,
       step = 1
     ),
@@ -16,40 +16,43 @@ select_options_ui <- function(id) {
     checkboxGroupInput(
       inputId = ns("age_models"),
       label = "Select which age model versions to show",
-      choices = c(
-        "Model K",
-        "Model J",
-        "Model I",
-        "Model H",
-        "Model G",
-        "Model F",
-        "Model E",
-        "Model D",
-        "Model C",
-        "Model B",
-        "Model A"
-      ),
-      selected = "Model K"
+      choices = age_models_list,
+      #   c(
+      #   "Model K",
+      #   "Model J",
+      #   "Model I",
+      #   "Model H",
+      #   "Model G",
+      #   "Model F",
+      #   "Model E",
+      #   "Model D",
+      #   "Model C",
+      #   "Model B",
+      #   "Model A"
+      # ),
+      selected = age_models_list[1]
+      # selected = "Model K"
     ),
     
     selectInput(
       inputId = ns("background_model"),
       label = "Plot a specific model\nas background (grey) points?",
-      choices = c(
-        "none",
-        "Model K",
-        "Model J",
-        "Model I",
-        "Model H",
-        "Model G",
-        "Model F",
-        "Model E",
-        "Model D",
-        "Model C",
-        "Model B",
-        "Model A"
-      ),
-      selected = "Model K"
+      choices = age_models_list,
+      #   c(
+      #   "Model K",
+      #   "Model J",
+      #   "Model I",
+      #   "Model H",
+      #   "Model G",
+      #   "Model F",
+      #   "Model E",
+      #   "Model D",
+      #   "Model C",
+      #   "Model B",
+      #   "Model A"
+      # ),
+      selected = age_models_list[1]
+      # selected = "Model K"
     )
   )
 }
