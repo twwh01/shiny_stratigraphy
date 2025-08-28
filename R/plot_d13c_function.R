@@ -13,18 +13,18 @@ plot_d13c <- function(plot_data, background_dataset, age_max_lim, age_min_lim) {
     deeptime::coord_geo(pos = "left", dat = "stages") +
     annotate(
       geom = "point",
-      x = background_dataset$d13C,
-      y = background_dataset$Age_Ma,
+      x = background_dataset$d13c_carb,
+      y = background_dataset$age_ma,
       colour = "grey80"
     ) +
     geom_point(
       data = plot_data, 
       aes(
-        x = d13C,
-        y = Age_Ma,
-        colour = Region
+        x = d13c_carb,
+        y = age_ma,
+        colour = region
       ),
       shape = 21
     ) +
-    facet_grid(~ Age_model)
+    facet_grid(~ age_model_label)
 }

@@ -20,7 +20,7 @@ plot_d13c_age_server <- function(
       plot_data <- reactive({
         indata %>%
           dplyr::filter(
-            Age_model %in% selections$age_models()
+            age_model %in% selections$age_models()
           )
       })
       
@@ -28,7 +28,7 @@ plot_d13c_age_server <- function(
       background_dataset <- reactive({
           indata %>% 
             dplyr::filter(
-              Age_model %in% selections$background_model()
+              age_model %in% selections$background_model()
             )
       })
         
