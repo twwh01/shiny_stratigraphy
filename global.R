@@ -54,7 +54,7 @@ indata_d13c <- indata %>%
         str_detect(region, "^Laurentia. Mexico."),
         "Laurentia (Mexico)", 
         ifelse(
-          str_detect(region, "^nothern Namibia"),
+          str_detect(region, "^northern Namibia Congo craton"),
           "Namibia",
           ifelse(
             str_detect(region, "^Arabia"),
@@ -84,3 +84,5 @@ data_13c_plot <- indata_d13c %>%
     !is.na(d13c_carb),
     !is.na(age_ma)
   )
+
+age_models_list <- data_13c_plot$age_model %>% unique() %>% sort(., decreasing = TRUE)
