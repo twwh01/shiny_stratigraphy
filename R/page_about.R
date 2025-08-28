@@ -5,10 +5,35 @@ page_about_ui <- function(id) {
       "About",
       align = "left"
     ),
-    h4("What is Shiny Stratigraphy?"),
-    p("Shiny Stratigraphy is an interactive web-based tool for comparing different stratigraphic models of the Ediacaran-Cambrian transition using R Shiny. It is in early development at present and is subject to change substantially and without warning until a first major version is released."),
-    h4("Who's behind Shiny Stratigraphy?"),
-    p("Thomas Wong Hearing developed the R-shiny app. Fred Bowyer produced the age models, including carbon isotope stratigraphic compilations (and biostratigraphy which will be added shortly)."),
+    
+    h4("What is ", em("Shiny Stratigraphy"), "?"),
+    p(em("Shiny Stratigraphy"), " is an interactive web-based tool for visualising 
+      the differences between stratigraphic age models, in particular for the 
+      Ediacaran-Cambrian transition. ", em("Shiny Stratigraphy"), " is in early 
+      development at present and is subject to change substantially and without 
+      warning until a first major version is released."),
+    
+    h4("Why bother with ", em("Shiny Stratigraphy"), "?"),
+    p("When working with temporal data it is important to make sure you are measuring 
+      datasets against the same standard. However, age models change over time as 
+      new data and methods become available. Especially when working with deep time 
+      data, age model uncertainties can be very large, and can significantly affect 
+      dataset interpretations (e.g. Westerhold ", em("et al."), " 2024). ", 
+      em("Shiny Stratigraphy"), " is being developed to help compare successive 
+      iterations of age models in a visual and quantitative fashion, and to see 
+      how the temporal stability of an age model has changed over time."),
+    
+    h4("Who's behind", em("Shiny Stratigraphy"), "?"),
+    p("Thomas Wong Hearing developed the Shiny app and R code. Fred Bowyer developed 
+      the Ediacaran-Cambrian stratigraphic age models (see Bowyer ", em("et al."), 
+      " 2023; 2024) on which this is based, including the carbon isotope stratigraphic 
+      compilations."),
+    
+    h4("What's coming next?"),
+    p(em("Shiny Stratigraphy"), " is in early development. New features to be added 
+      include the option of uploading your own data, new variables to display and 
+      compare, and more options to download the code used as well as the figures 
+      produced.")
   )
 }
 
